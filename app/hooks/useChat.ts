@@ -9,13 +9,11 @@ import {
   resetChat as resetChatAction,
   setModel as setModelAction,
   updateLoadingState,
-  appendToLastModelReply
-} from "@app/state/chatSlice";
-
-type ChatMessage = {
-  role: "user" | "system" | "assistant" | "tool";
-  content: string;
-};
+  appendToLastModelReply,
+} from "@app/reducers/chatSlice";
+import { callChatAPI } from "@app/utils/chatApi";
+import { parseStream } from "@app/utils/streamParser";
+import { buildApiMessages } from "@app/utils/messageBuilder";
 
 export function useChat() {
   const messages = useSelector((state: RootState) => state.chat.messages);
@@ -28,66 +26,15 @@ export function useChat() {
     async (content: string) => {
       dispatch(addUserMessage(content));
       dispatch(updateLoadingState(true));
-  
+
       try {
-        const apiMessages = messages.map(
-          (msg): ChatMessage => ({
-            role: msg.role === "model" ? "assistant" : "user",
-            content: msg.content,
-          })
-        );
-  
-        apiMessages.push({ role: "user", content });
-  
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model,
-            messages: apiMessages,
-          }),
-        });
-  
-        if (!response.body) {
-          throw new Error("No response body");
-        }
+        const apiMessages = buildApiMessages(messages, content);
+        const responseBody = await callChatAPI(model, apiMessages);
 
         dispatch(addModelReply(""));
-  
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-        let buffer = "";
-  
-        while (true) {
-          const { value, done } = await reader.read();
-          if (done) break;
-  
-          buffer += decoder.decode(value, { stream: true });
-  
-          const lines = buffer.split("\n\n");
-          buffer = lines.pop() || "";
-  
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const json = line.replace(/^data: /, "").trim();
-              if (json === "[DONE]") {
-                break;
-              }
-  
-              try {
-                const parsed = JSON.parse(json);
-                const delta = parsed.choices?.[0]?.delta?.content;
-                if (delta) {
-                  dispatch(appendToLastModelReply(delta)); 
-                }
-              } catch (err) {
-                console.error("Stream JSON parse error:", err, json);
-              }
-            }
-          }
-        }
+        await parseStream(responseBody, (delta) => {
+          dispatch(appendToLastModelReply(delta));
+        });
       } catch (error) {
         console.error("Error sending message:", error);
         dispatch(

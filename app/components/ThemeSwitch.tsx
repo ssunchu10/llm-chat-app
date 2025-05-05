@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { JSX, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@app/store';
-import { setTheme } from '@app/state/themeSlice';
+import { JSX, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@app/store";
+import { setTheme } from "@app/reducers/themeSlice";
 
 interface SwitchOption {
   name: string;
-  value: 'light' | 'dark';
+  value: "light" | "dark";
   iconSvg: JSX.Element;
 }
 
 const SWITCH_DATA: SwitchOption[] = [
   {
-    name: 'Light',
-    value: 'light',
+    name: "Light",
+    value: "light",
     iconSvg: (
       <svg className="size-5" viewBox="0 0 24 24">
         <path
@@ -29,8 +29,8 @@ const SWITCH_DATA: SwitchOption[] = [
     ),
   },
   {
-    name: 'Dark',
-    value: 'dark',
+    name: "Dark",
+    value: "dark",
     iconSvg: (
       <svg className="size-4" viewBox="0 0 24 24">
         <path
@@ -57,8 +57,8 @@ const ThemeSwitch: React.FC = () => {
 
   useEffect(() => {
     if (hasMounted) {
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-      localStorage.setItem('theme', theme);
+      document.documentElement.classList.toggle("dark", theme === "dark");
+      localStorage.setItem("theme", theme);
     }
   }, [theme, hasMounted]);
 
@@ -71,7 +71,7 @@ const ThemeSwitch: React.FC = () => {
           <button
             key={data.value}
             className={`flex items-center gap-2 px-4 py-2 text-black dark:text-white ${
-              theme === data.value ? 'bg-neutral-200 dark:bg-neutral-700' : ''
+              theme === data.value ? "bg-neutral-200 dark:bg-neutral-700" : ""
             }`}
             onClick={() => dispatch(setTheme(data.value))}
           >

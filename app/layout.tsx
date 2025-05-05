@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import { ThemeProvider } from "next-themes";
-import { Providers } from "./state/providers";
+import { Providers } from "./reducers/providers";
 
 import "./globals.css";
 
@@ -16,9 +16,7 @@ const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
     <html suppressHydrationWarning lang="en">
       <body className="bg-background text-foreground antialiased">
         <Providers>
-          <ThemeProvider attribute="class">
-            {children}
-          </ThemeProvider>
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
         </Providers>
       </body>
     </html>

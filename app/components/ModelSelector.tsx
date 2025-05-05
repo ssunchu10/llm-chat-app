@@ -9,7 +9,7 @@ export default function ModelSelector({
   currentModel,
   onChange,
 }: ModelSelectorProps) {
-  const models = ["mistral", "llama3"]; // replace with supported models
+  const models = ["mistral", "llama3"];
 
   return (
     <div className="flex items-center gap-3">

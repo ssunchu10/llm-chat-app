@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
-import themeReducer from './state/themeSlice';
-import chatReducer from './state/chatSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import themeReducer from "./reducers/themeSlice";
+import chatReducer from "./reducers/chatSlice";
 
 export const store = configureStore({
   reducer: {
