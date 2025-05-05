@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-
 import type { Metadata } from "next";
 
 import { ThemeProvider } from "next-themes";
+import { Providers } from "./state/providers"; // Adjust the path if needed
 
 import "./globals.css";
 
@@ -14,8 +14,12 @@ export const metadata: Metadata = {
 const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className={`bg-background text-foreground antialiased`}>
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+      <body className="bg-background text-foreground antialiased">
+        <Providers>
+          <ThemeProvider attribute="class">
+            {children}
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
