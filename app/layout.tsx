@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import { ThemeProvider } from "next-themes";
-import { Providers } from "./state/providers"; // Adjust the path if needed
+import { Providers } from "./state/providers";
 
 import "./globals.css";
 

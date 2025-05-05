@@ -3,10 +3,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import themeReducer from './state/themeSlice';
+import chatReducer from './state/chatSlice';
 
 export const store = configureStore({
   reducer: {
     theme: themeReducer,
+    chat: chatReducer,
   },
 });
 

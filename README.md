@@ -45,7 +45,7 @@ A web-based chat interface built with **Next.js**, **Tailwind CSS**, and **TypeS
 ## Models Used
 1. mistral (e.g., mistral-7b-instruct)
 
-2. llama2 (e.g., llama-2-70b-chat)
+2. llama3 (e.g., llama-2-70b-chat)
 
     You can change the models used in:
     /components/ModelSelector.tsx
