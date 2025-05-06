@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import ThemeSwitch from "./ThemeSwitch";
+import BrainIcon from "./BrainIcon";
 
 interface ChatHeaderProps {
   resetChat: () => void;
@@ -11,13 +11,7 @@ export default function ChatHeader({ resetChat }: ChatHeaderProps) {
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-2">
-        <Image
-          src="/logo.png"
-          alt="Nova AI Logo"
-          width={36}
-          height={36}
-          priority
-        />
+        <BrainIcon/>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           Nova AI
         </h1>

@@ -29,7 +29,7 @@ export function CodeBlock({
         <span className="font-mono">{language || "code"}</span>
         <button
           onClick={handleCopy}
-          className="px-2 py-1 text-xs bg-gray-800 text-white rounded hover:bg-gray-700 transition"
+          className="px-2 py-1 text-xs bg-gray-800 text-white cursor-pointer rounded hover:bg-gray-700 transition"
         >
           {copied ? "Copied!" : "Copy"}
         </button>

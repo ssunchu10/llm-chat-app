@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "Nova AI",
   description: "Your chat assistant",
   icons: {
-    icon: "/logo.png",
+    icon: "/favicon.svg",
   },
 };
 
