@@ -40,31 +40,26 @@ You can update or extend model choices in `/components/ModelSelector.tsx`.
 ---
 
 ## Setup Instructions
-
-## 1. Clone the repository
-
-```bash
+### 1. Clone the repository
 git clone https://github.com/your-username/llm-chat-app.git
 cd llm-chat-app
 
-2. Install dependencies
-```bash
+### 2. Install dependencies
 npm install
 
-3. Add your API key
+### 3. Add your API key
 Create a .env file in the root directory with: TOGETHER_API_KEY=your_api_key_here
 
-4. Start the development server
-```bash
+### 4. Start the development server
 npm run dev
 
 ---
 
-**Notes**
-Time Spent
+## Notes
+### Time Spent
 Approximately 10–12 hours in total
 
-Trade-offs and Limitations
+### Trade-offs and Limitations
 Together.ai was used for API integration. In production, this can easily be swapped out with Hugging Face Inference Endpoints or another provider by updating the API logic.
 
 No persistent backend or database is included (as per project scope).
@@ -72,7 +67,7 @@ No persistent backend or database is included (as per project scope).
 Streaming behavior works effectively but can be refined with token-level control.
 
 
-Challenge Criteria Checklist
+### Challenge Criteria Checklist
  Chat UI with user and model messages
 
  Predefined model selector
