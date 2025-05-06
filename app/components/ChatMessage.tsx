@@ -63,7 +63,6 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                     );
                   }
               
-                  // For block code, render a standalone div (not inside <p>)
                   return (
                     <div className="my-4">
                       <CodeBlock
