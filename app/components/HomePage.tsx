@@ -16,19 +16,29 @@ const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length === 0) return;
+
+    const last = messages[messages.length - 1];
+
+    if (last.role !== "user") {
+      const timeout = setTimeout(() => {
+        scrollToBottom();
+      }, 50);
+
+      return () => clearTimeout(timeout);
+    }
   }, [messages.map((m) => m.content).join("")]);
 
   return (
     <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white flex flex-col">
-      <div className="w-full px-6 py-4 shadow-md bg-white dark:bg-gray-800">
+      <div className="sticky top-0 z-50 w-full px-6 py-4 shadow-md bg-white dark:bg-gray-800 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <ChatHeader resetChat={resetChat} />
           <ModelSelector currentModel={model} onChange={setModel} />
         </div>
       </div>
 
-      <main className="flex-1 overflow-y-auto px-4 py-6 pb-32">
+      <main className="flex-1 overflow-y-auto scroll-smooth px-4 py-6 pb-32">
         <div className="max-w-4xl mx-auto space-y-3">
           {messages.length === 0 ? (
             <div
