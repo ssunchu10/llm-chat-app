@@ -2,4 +2,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-  
+body {
+    font-family: var(--font-montserrat), sans-serif !important;
+}
+    
