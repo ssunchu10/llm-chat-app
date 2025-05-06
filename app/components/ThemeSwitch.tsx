@@ -69,15 +69,18 @@ const ThemeSwitch: React.FC = () => {
       <div className="flex w-auto flex-row justify-center overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-700 sm:flex-row">
         {SWITCH_DATA.map((data) => (
           <button
-            key={data.value}
-            className={`flex items-center gap-2 px-4 py-2 text-black dark:text-white ${
-              theme === data.value ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
-            onClick={() => dispatch(setTheme(data.value))}
-          >
-            {data.iconSvg}
-            <h3 className="hidden sm:block">{data.name}</h3>
-          </button>
+          key={data.value}
+          title={data.name + " mode"}
+          className={`flex items-center gap-2 px-4 py-2 text-black dark:text-white transition-all duration-200 ease-in-out hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:scale-105
+            ${theme === data.value
+              ? "bg-neutral-200 dark:bg-neutral-700"
+              : ""}`}
+          onClick={() => dispatch(setTheme(data.value))}
+        >
+          {data.iconSvg}
+          <h3 className="hidden sm:block">{data.name}</h3>
+        </button>
+        
         ))}
       </div>
     </div>

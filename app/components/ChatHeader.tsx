@@ -16,9 +16,9 @@ export default function ChatHeader({ resetChat }: ChatHeaderProps) {
         <ThemeSwitch />
         <button
           onClick={resetChat}
-          className="text-sm bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
+          className="px-6 py-2 rounded-md text-base font-semibold text-white bg-red-500 hover:bg-red-600 hover:shadow-sm hover:scale-[1.03] transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-300 dark:focus:ring-red-600"
         >
-          Reset
+          Reset Chat
         </button>
       </div>
     </div>
