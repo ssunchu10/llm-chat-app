@@ -1,10 +1,12 @@
 "use client";
 
 import { Message } from "@app/types/message";
+import { CodeBlock } from "./CodeBlock";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
+import { ComponentProps } from "react";
 
 interface ChatMessageProps {
   message: Message;
@@ -36,7 +38,47 @@ export default function ChatMessage({ message }: ChatMessageProps) {
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeHighlight]}
               components={{
-                strong: ({ children }) => <strong style={{ fontWeight: 700, color: 'inherit' }}>{children}</strong>,
+                strong: ({ children }) => (
+                  <strong style={{ fontWeight: 700, color: "inherit" }}>
+                    {children}
+                  </strong>
+                ),
+                code: ({
+                  inline,
+                  className = "",
+                  children,
+                  ...props
+                }: ComponentProps<"code"> & { inline?: boolean }) => {
+                  const match = /language-(\w+)/.exec(className || "");
+                  const language = match?.[1] || "";
+              
+                  if (inline) {
+                    return (
+                      <code
+                        className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-sm font-mono"
+                        {...props}
+                      >
+                        {children}
+                      </code>
+                    );
+                  }
+              
+                  // For block code, render a standalone div (not inside <p>)
+                  return (
+                    <div className="my-4">
+                      <CodeBlock
+                        language={language}
+                        value={
+                          Array.isArray(children)
+                            ? children.join("")
+                            : typeof children === "string"
+                            ? children
+                            : ""
+                        }
+                      />
+                    </div>
+                  );
+                },
               }}
             >
               {message.content}

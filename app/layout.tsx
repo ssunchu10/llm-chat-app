@@ -16,6 +16,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Nova AI",
   description: "Your chat assistant",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {

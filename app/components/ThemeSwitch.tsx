@@ -71,7 +71,7 @@ const ThemeSwitch: React.FC = () => {
           <button
           key={data.value}
           title={data.name + " mode"}
-          className={`flex items-center gap-2 px-4 py-2 text-black dark:text-white transition-all duration-200 ease-in-out hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:scale-105
+          className={`flex items-center cursor-pointer gap-2 px-4 py-2 text-black dark:text-white transition-all duration-200 ease-in-out hover:bg-neutral-300 dark:hover:bg-neutral-800 hover:scale-105
             ${theme === data.value
               ? "bg-neutral-200 dark:bg-neutral-700"
               : ""}`}

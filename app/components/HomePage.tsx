@@ -64,7 +64,7 @@ const HomePage: React.FC = () => {
                 <span className="font-medium text-blue-600 dark:text-blue-400">
                   LLaMA3
                 </span>{" "}
-                depending on your preference or the task at hand.
+                using the model selector dropdown in the top right.
               </p>
             </div>
           ) : (

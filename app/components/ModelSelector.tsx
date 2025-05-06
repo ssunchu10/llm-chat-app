@@ -20,7 +20,7 @@ export default function ModelSelector({
       <select
         value={currentModel}
         onChange={(e) => onChange(e.target.value as "mistral" | "llama3")}
-        className="border border-gray-300 dark:border-gray-600 rounded px-3 py-1 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        className="border border-gray-300 cursor-pointer dark:border-gray-600 rounded px-3 py-1 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
       >
         {models.map((m) => (
           <option key={m} value={m}>
