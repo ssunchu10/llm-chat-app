@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
 
       return () => clearTimeout(timeout);
     }
-  }, [messages.map((m) => m.content).join("")]);
+  }, [messages.map((m) => m.content).join(""), sendMessage]);
 
   return (
     <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white flex flex-col">

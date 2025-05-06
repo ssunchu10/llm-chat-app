@@ -8,8 +8,6 @@ const MODEL_MAP = {
 
 type ModelKey = keyof typeof MODEL_MAP;
 
-export const runtime = 'edge';
-
 export async function POST(req: NextRequest) {
   try {
     const { model, messages } = await req.json();
