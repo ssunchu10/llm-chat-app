@@ -36,7 +36,7 @@ export function CodeBlock({
       </div>
 
       <pre className="bg-black text-white text-sm p-4 overflow-x-auto font-mono">
-        <code className={`language-${language}`}>{displayValue}</code>
+        <code className={`language-${language || "text"}`}>{displayValue}</code>
       </pre>
     </div>
   );

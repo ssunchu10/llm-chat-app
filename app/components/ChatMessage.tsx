@@ -12,6 +12,38 @@ interface ChatMessageProps {
   message: Message;
 }
 
+const extractTextContent = (node: any): string => {
+  if (typeof node === "string") {
+    return node;
+  }
+
+  if (node === null || node === undefined) {
+    return "";
+  }
+
+  if (Array.isArray(node)) {
+    return node.map(extractTextContent).join("");
+  }
+
+  if (node.props && node.props.children) {
+    return extractTextContent(node.props.children);
+  }
+
+  if (node.value) {
+    return node.value;
+  }
+
+  if (node.children) {
+    return node.children.map(extractTextContent).join("");
+  }
+
+  try {
+    return String(node);
+  } catch {
+    return "";
+  }
+};
+
 export default function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === "user";
 
@@ -40,86 +72,87 @@ export default function ChatMessage({ message }: ChatMessageProps) {
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeHighlight]}
               components={{
-                p: ({ children }) => (
-                  <p className="mb-3 text-base leading-relaxed text-gray-900 dark:text-gray-100">
-                    {children}
-                  </p>
+                p: ({ node, ...props }) => (
+                  <p
+                    className="mb-3 text-base leading-relaxed text-gray-900 dark:text-gray-100"
+                    {...props}
+                  />
                 ),
-                h1: ({ children }) => (
-                  <h1 className="text-2xl font-bold mt-6 mb-2">{children}</h1>
+                h1: ({ node, ...props }) => (
+                  <h1 className="text-2xl font-bold mt-6 mb-2" {...props} />
                 ),
-                h2: ({ children }) => (
-                  <h2 className="text-xl font-semibold mt-4 mb-2">
-                    {children}
-                  </h2>
+                h2: ({ node, ...props }) => (
+                  <h2 className="text-xl font-semibold mt-4 mb-2" {...props} />
                 ),
-                ul: ({ children }) => (
-                  <ul className="list-disc list-inside ml-4">{children}</ul>
+                ul: ({ node, ...props }) => (
+                  <ul className="list-disc list-inside ml-4" {...props} />
                 ),
-                ol: ({ children }) => (
-                  <ol className="list-decimal list-inside ml-4">{children}</ol>
+                ol: ({ node, ...props }) => (
+                  <ol className="list-decimal list-inside ml-4" {...props} />
                 ),
-                li: ({ children }) => <li className="mb-1">{children}</li>,
-                blockquote: ({ children }) => (
-                  <blockquote className="border-l-4 border-gray-400 pl-4 italic text-gray-700 dark:text-gray-300">
-                    {children}
-                  </blockquote>
+                li: ({ node, ...props }) => (
+                  <li
+                    className="mb-1 list-item [&>*]:inline leading-6"
+                    {...props}
+                  />
                 ),
-                a: ({ href, children }) => (
+                blockquote: ({ node, ...props }) => (
+                  <blockquote
+                    className="border-l-4 border-gray-400 pl-4 italic text-gray-700 dark:text-gray-300"
+                    {...props}
+                  />
+                ),
+                a: ({ node, href, ...props }) => (
                   <a
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800"
-                  >
-                    {children}
-                  </a>
+                    {...props}
+                  />
                 ),
                 hr: () => (
                   <hr className="my-4 border-gray-300 dark:border-gray-600" />
                 ),
-                strong: ({ children }) => (
-                  <strong className="font-semibold text-gray-900 dark:text-white">
-                    {children}
-                  </strong>
+                strong: ({ node, ...props }) => (
+                  <strong
+                    className="font-semibold text-gray-900 dark:text-white"
+                    {...props}
+                  />
                 ),
-                em: ({ children }) => (
-                  <em className="italic text-gray-700 dark:text-gray-300">
-                    {children}
-                  </em>
+                em: ({ node, ...props }) => (
+                  <em
+                    className="italic text-gray-700 dark:text-gray-300"
+                    {...props}
+                  />
                 ),
                 code: ({
+                  node,
                   inline,
-                  className = "",
+                  className,
                   children,
                   ...props
-                }: ComponentProps<"code"> & { inline?: boolean }) => {
+                }: ComponentProps<"code"> & {
+                  inline?: boolean;
+                  node?: any;
+                }) => {
                   const match = /language-(\w+)/.exec(className || "");
                   const language = match?.[1] || "";
 
-                  if (inline) {
+                  const codeContent = extractTextContent(children);
+
+                  if (inline || !language) {
                     return (
                       <code
                         className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-sm font-mono"
                         {...props}
                       >
-                        {children}
+                        {codeContent}
                       </code>
                     );
                   }
 
-                  return (
-                    <CodeBlock
-                      language={language}
-                      value={
-                        Array.isArray(children)
-                          ? children.join("")
-                          : typeof children === "string"
-                            ? children
-                            : ""
-                      }
-                    />
-                  );
+                  return <CodeBlock language={language} value={codeContent} />;
                 },
               }}
             >
