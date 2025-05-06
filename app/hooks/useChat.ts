@@ -1,35 +1,69 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Message } from '@app/types/message';
+import { useSelector, useDispatch } from "react-redux";
+import { useCallback } from "react";
+import { RootState } from "@app/store";
+import {
+  addUserMessage,
+  addModelReply,
+  resetChat as resetChatAction,
+  setModel as setModelAction,
+  updateLoadingState,
+  appendToLastModelReply,
+} from "@app/reducers/chatSlice";
+import { callChatAPI } from "@app/utils/chatApi";
+import { parseStream } from "@app/utils/streamParser";
+import { buildApiMessages } from "@app/utils/messageBuilder";
 
-export const useChat = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [model, setModel] = useState<string>('mistral'); // default model
+export function useChat() {
+  const messages = useSelector((state: RootState) => state.chat.messages);
+  const model = useSelector((state: RootState) => state.chat.model);
+  const isLoading = useSelector((state: RootState) => state.chat.loading);
 
-  const sendMessage = async (content: string) => {
-    const userMessage: Message = { role: 'user', content };
-    const updatedMessages = [...messages, userMessage];
+  const dispatch = useDispatch();
 
-    setMessages(updatedMessages);
+  const sendMessage = useCallback(
+    async (content: string) => {
+      dispatch(addUserMessage(content));
+      dispatch(updateLoadingState(true));
 
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      body: JSON.stringify({ messages: updatedMessages, model }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+      try {
+        const apiMessages = buildApiMessages(messages, content);
+        const responseBody = await callChatAPI(model, apiMessages);
 
-    const data = await res.json();
-    const modelMessage: Message = {
-      role: 'model',
-      content: data.message,
-      model,
-    };
+        dispatch(addModelReply(""));
+        await parseStream(responseBody, (delta) => {
+          dispatch(appendToLastModelReply(delta));
+        });
+      } catch (error) {
+        console.error("Error sending message:", error);
+        dispatch(
+          addModelReply("Sorry, there was an error processing your request.")
+        );
+      } finally {
+        dispatch(updateLoadingState(false));
+      }
+    },
+    [dispatch, messages, model]
+  );
 
-    setMessages((prev) => [...prev, modelMessage]);
+  const resetChat = useCallback(() => {
+    dispatch(resetChatAction());
+  }, [dispatch]);
+
+  const setModel = useCallback(
+    (newModel: "mistral" | "llama3") => {
+      dispatch(setModelAction(newModel));
+    },
+    [dispatch]
+  );
+
+  return {
+    messages,
+    sendMessage,
+    resetChat,
+    isLoading,
+    model,
+    setModel,
   };
-
-  const resetChat = () => setMessages([]);
-
-  return { messages, sendMessage, resetChat, model, setModel };
-};
+}
