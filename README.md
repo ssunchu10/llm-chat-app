@@ -16,7 +16,7 @@ Built as part of a programming challenge to demonstrate frontend integration, st
 - **Auto Scroll** – Automatically scrolls to the latest message after a response.
 - **Model Labels** – Each assistant message is labeled with the LLM that generated it.
 - **Structured State Management** – All state managed cleanly using Redux Toolkit.
-- **Responsive Design** – Mobile-friendly layout with sticky input and header.
+- **Responsive Design** – Mobile-friendly layout with sticky header and fixed input.
 
 ---
 
@@ -39,8 +39,6 @@ Built as part of a programming challenge to demonstrate frontend integration, st
 | Mistral    | `mistralai/Mistral-7B-Instruct-v0.2` |
 | LLaMA 3    | `meta-llama/Llama-3-70B-Instruct-Turbo-Free` |
 
-Modify or extend models in `/components/ModelSelector.tsx`.
-
 ---
 
 ## Setup Instructions
@@ -61,17 +59,14 @@ npm run dev
 
 ## Notes
 ### Time Spent
-~15–20 hours over 4 days.
+~12–17 hours over 4 days.
 
 ### Trade-offs and Limitations
-No persistent backend or database integration (by design for scope).
+No persistent backend or database integration: Currently, chat history is stored in memory only and resets on page refresh. For production use, integrating a database would enable persistent conversations across sessions.
 
-API provider is Together.ai; can be swapped with Hugging Face or OpenAI.
+API provider: The app uses Together.ai for model responses. The integration is modular and can easily be replaced with Hugging Face, OpenAI, or custom endpoints.
 
-Streaming behavior is minimal and can be enhanced.
-
-
-
+Streaming: Response streaming is basic and can be enhanced to improve the smoothness of model replies.
 
 ### Challenge Criteria Checklist
  Chat UI with user and assistant messages
