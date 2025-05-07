@@ -1,6 +1,6 @@
-# LLM Chat App
+# Nova AI – LLM Chat App
 
-A fully functional web-based chat interface built with **Next.js**, **Tailwind CSS**, and **TypeScript**, enabling users to converse with multiple large language models (LLMs) in a shared, contextual chat.
+A full-featured, beautifully designed web-based chat interface built using **Next.js**, **TypeScript**, **Tailwind CSS**, and **Redux Toolkit**. Nova AI allows users to chat seamlessly with multiple large language models (LLMs) like Mistral and LLaMA3, while preserving context, supporting themes, and offering a polished UX.
 
 Built as part of a programming challenge to demonstrate frontend integration, state management, and conversational memory across models.
 
@@ -8,34 +8,38 @@ Built as part of a programming challenge to demonstrate frontend integration, st
 
 ## Features
 
-- Model switching between two LLMs (Mistral & LLaMA3)
-- Shared context across all model replies
-- Each model response is clearly labeled
-- Dark and light theme support
-- Reset button to clear the conversation
-- Auto-scrolls to the most recent message
-- Built with TypeScript and Redux Toolkit for predictable state management
+- **Model Switching** – Dynamically switch between Mistral and LLaMA3 with contextual memory.
+- **Light/Dark Theme Toggle** – Toggle between themes with persisted state.
+- **Markdown & Code Support** – Messages support rich text, code blocks, links, and more via `react-markdown` and `rehype-highlight`.
+- **Enhanced Input** – Auto-expanding, multi-line text input with Enter to send and Shift+Enter for newline.
+- **New Chat Reset** – Start fresh at any time with a single click.
+- **Auto Scroll** – Automatically scrolls to the latest message after a response.
+- **Model Labels** – Each assistant message is labeled with the LLM that generated it.
+- **Structured State Management** – All state managed cleanly using Redux Toolkit.
+- **Responsive Design** – Mobile-friendly layout with sticky input and header.
 
 ---
 
 ## Tech Stack
 
-- [Next.js 14 (App Router)](https://nextjs.org/)
+- [Next.js 14 – App Router](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
-- [Together.ai API](https://www.together.ai/) for LLM access
+- [Together.ai](https://www.together.ai/) – LLM API provider
+- [React Markdown](https://github.com/remarkjs/react-markdown) + [Rehype Highlight](https://github.com/rehypejs/rehype-highlight)
 
 ---
 
-## Models Used
+
+## Supported Models
 
 | Model Name | Model ID |
 |------------|----------|
 | Mistral    | `mistralai/Mistral-7B-Instruct-v0.2` |
 | LLaMA 3    | `meta-llama/Llama-3-70B-Instruct-Turbo-Free` |
 
-You can update or extend model choices in `/components/ModelSelector.tsx`.
+Modify or extend models in `/components/ModelSelector.tsx`.
 
 ---
 
@@ -57,33 +61,37 @@ npm run dev
 
 ## Notes
 ### Time Spent
-Approximately 10–12 hours in total
+~15–20 hours over 4 days.
 
 ### Trade-offs and Limitations
-Together.ai was used for API integration. In production, this can easily be swapped out with Hugging Face Inference Endpoints or another provider by updating the API logic.
+No persistent backend or database integration (by design for scope).
 
-No persistent backend or database is included (as per project scope).
+API provider is Together.ai; can be swapped with Hugging Face or OpenAI.
 
-Streaming behavior works effectively but can be refined with token-level control.
+Streaming behavior is minimal and can be enhanced.
+
+
 
 
 ### Challenge Criteria Checklist
- Chat UI with user and model messages
+ Chat UI with user and assistant messages
 
- Predefined model selector
+ Model selector (Mistral & LLaMA3)
 
- Shared conversation history across models
+ Shared conversation context
 
- Full context passed to API
+ API call passes full chat history
 
- Clearly labeled model responses
+ Assistant replies labeled with model
 
- Dark/light mode support
+ Dark/light theme toggle
 
- Clear/reset conversation option
+ Conversation reset button
 
- Auto-scroll to latest message
+ Auto-scroll to newest message
 
- Flexible API integration structure
+ Markdown + code formatting
 
- Clean, responsive design
+ Responsive & clean UI
+
+ Clear structure for API flexibility
