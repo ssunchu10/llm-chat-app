@@ -30,7 +30,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="h-screen w-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white flex flex-col">
-      <div className="sticky top-0 w-full bg-white dark:bg-gray-800 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm ">
+      <div className="sticky top-0 z-50 w-full bg-white dark:bg-gray-800 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm ">
         <ChatHeader hasMessages={messages.length > 0} />
       </div>
 
