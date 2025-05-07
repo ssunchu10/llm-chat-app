@@ -24,7 +24,7 @@ export default function ChatInput({ onSend }: ChatInputProps) {
             }
           }}
           placeholder="Type your message..."
-          className="w-full resize-none overflow-x-auto max-h-60 min-h-[60px] border border-gray-600 bg-gray-900 text-md rounded px-4 py-2 text-white placeholder:text-gray-400"
+          className="w-full resize-none overflow-x-auto max-h-60 min-h-[60px] border border-gray-600 bg-white text-black dark:bg-gray-900 dark:text-white text-md rounded px-4 py-2 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white"
           style={{ whiteSpace: "pre", overflowX: "auto" }}
         />
       </div>
@@ -33,12 +33,13 @@ export default function ChatInput({ onSend }: ChatInputProps) {
           type="submit"
           title={isInputEmpty ? "Input is empty" : ""}
           disabled={isInputEmpty}
-          className={`px-4 py-2 rounded text-sm text-white transition h-[40px] self-center
-            ${
-              isInputEmpty
-                ? "bg-gray-500 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700 cursor-pointer"
-            }`}
+          className={`px-4 py-2 rounded text-sm font-bold text-white dark:text-black transition h-[40px] self-center transform
+      ${
+        isInputEmpty
+          ? "bg-gray-500 cursor-not-allowed"
+          : "bg-black dark:bg-white hover:opacity-80 hover:scale-105 cursor-pointer"
+      }
+      `}
         >
           Send
         </button>
