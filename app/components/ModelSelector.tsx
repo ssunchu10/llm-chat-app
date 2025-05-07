@@ -1,10 +1,9 @@
 "use client";
 import { useModelSelector } from "@app/hooks/useModelSelector";
 
-
 export default function ModelSelector() {
   const { models, model, setModel } = useModelSelector();
-  
+
   return (
     <div className="flex items-center gap-3">
       <label className="text-gray-700 dark:text-gray-200 font-medium">

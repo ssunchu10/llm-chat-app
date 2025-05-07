@@ -13,7 +13,9 @@ interface MessageRendererProps {
   content: string;
 }
 
-export const MessageRenderer: React.FC<MessageRendererProps> = ({ content }) => {
+export const MessageRenderer: React.FC<MessageRendererProps> = ({
+  content,
+}) => {
   return (
     <div className="prose prose-sm dark:prose-invert max-w-none leading-relaxed space-y-4">
       <ReactMarkdown
@@ -39,10 +41,7 @@ export const MessageRenderer: React.FC<MessageRendererProps> = ({ content }) => 
             <ol className="list-decimal list-inside ml-4" {...props} />
           ),
           li: ({ node, ...props }) => (
-            <li
-              className="mb-1 list-item [&>*]:inline leading-6"
-              {...props}
-            />
+            <li className="mb-1 list-item [&>*]:inline leading-6" {...props} />
           ),
           blockquote: ({ node, ...props }) => (
             <blockquote

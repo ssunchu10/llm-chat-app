@@ -43,15 +43,17 @@ export const chatSlice = createSlice({
       state.loading = action.payload;
     },
     appendToLastModelReply: (state, action) => {
-        const lastMessage = state.messages.findLast((msg) => msg.role === "model");
-        if (lastMessage) {
-          lastMessage.content += action.payload;
-        } else {
-          state.messages.push({
-            role: "model",
-            content: action.payload,
-          });
-        }
+      const lastMessage = state.messages.findLast(
+        (msg) => msg.role === "model"
+      );
+      if (lastMessage) {
+        lastMessage.content += action.payload;
+      } else {
+        state.messages.push({
+          role: "model",
+          content: action.payload,
+        });
+      }
     },
   },
 });
@@ -62,7 +64,7 @@ export const {
   addModelReply,
   resetChat,
   updateLoadingState,
-  appendToLastModelReply
+  appendToLastModelReply,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

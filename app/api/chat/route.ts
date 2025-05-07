@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest } from "next/server";
 import { Together } from "together-ai";
 
 const MODEL_MAP = {
@@ -13,14 +13,14 @@ export async function POST(req: NextRequest) {
     const { model, messages } = await req.json();
 
     if (!MODEL_MAP[model as ModelKey]) {
-      return new Response(JSON.stringify({ error: 'Invalid model' }), {
+      return new Response(JSON.stringify({ error: "Invalid model" }), {
         status: 400,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
     }
 
     const together = new Together({
-      apiKey: process.env.TOGETHER_API_KEY || '',
+      apiKey: process.env.TOGETHER_API_KEY || "",
     });
 
     const stream = await together.chat.completions.create({
@@ -44,16 +44,19 @@ export async function POST(req: NextRequest) {
 
     return new Response(readable, {
       headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        Connection: 'keep-alive',
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
       },
     });
   } catch (error) {
     console.error("API route error:", error);
-    return new Response(JSON.stringify({ error: 'Failed to process request' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: "Failed to process request" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }

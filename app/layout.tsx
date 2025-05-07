@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 
 import { ThemeProvider } from "next-themes";
 import { Providers } from "./reducers/providers";
-import { Montserrat } from 'next/font/google';
+import { Montserrat } from "next/font/google";
 
 const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-montserrat',
-  display: 'swap',
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
 });
 
 import "./globals.css";

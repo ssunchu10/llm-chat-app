@@ -7,13 +7,8 @@ interface ChatInputProps {
 }
 
 export default function ChatInput({ onSend }: ChatInputProps) {
-  const {
-    input,
-    isInputEmpty,
-    textareaRef,
-    handleSubmit,
-    handleInputChange,
-  } = useChatInput(onSend);
+  const { input, isInputEmpty, textareaRef, handleSubmit, handleInputChange } =
+    useChatInput(onSend);
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2 w-full">
