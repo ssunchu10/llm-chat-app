@@ -5,7 +5,7 @@ export function useIsLargeScreen() {
 
   useEffect(() => {
     const checkSize = () => {
-      setIsLarge(window.innerWidth >= 768); // Tailwind's `md` breakpoint is 768px
+      setIsLarge(window.innerWidth >= 768); 
     };
 
     checkSize();
