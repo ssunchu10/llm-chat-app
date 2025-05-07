@@ -1,30 +1,49 @@
 "use client";
 
-import ThemeSwitch from "./ThemeSwitch";
-import BrainIcon from "./BrainIcon";
+import { useState } from "react";
+import ThemeSwitch from "./Theme/ThemeSwitch";
+import BrainIcon from "./Icons/BrainIcon";
+import NewChatIcon from "./Icons/NewChatIcon";
+import { useChat } from "@app/hooks/useChat";
+import ModelSelector from "./ModelSelector/ModelSelector";
+import Arrow from "./Icons/ArrowIcon";
 
 interface ChatHeaderProps {
-  resetChat: () => void;
+  hasMessages: boolean;
 }
 
-export default function ChatHeader({ resetChat }: ChatHeaderProps) {
+export default function ChatHeader({ hasMessages }: ChatHeaderProps) {
+  const { resetChat } = useChat();
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
-    <div className="flex justify-between items-center">
-      <div className="flex items-center gap-2">
-        <BrainIcon/>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Nova AI
-        </h1>
-      </div>
-      <div className="flex gap-2 px-7">
-        <ThemeSwitch />
-        <button
-          onClick={resetChat}
-          className="px-6 py-2 rounded-md cursor-pointer text-base font-semibold text-white bg-red-500 hover:bg-red-600 hover:shadow-sm hover:scale-[1.03] transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-300 dark:focus:ring-red-600"
+    <div className="relative pt-2 pb-2">
+      <div className="relative flex items-center justify-center h-12">
+        <div className="absolute left-2 sm:left-2">
+          {hasMessages && <NewChatIcon onClick={resetChat} />}
+        </div>
+
+        <div
+          className="flex items-center gap-2 cursor-pointer select-none"
+          onClick={() => setShowDropdown((prev) => !prev)}
         >
-          Reset Chat
-        </button>
+          <BrainIcon />
+          <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+            Nova AI
+          </h1>
+          <Arrow showDropdown={showDropdown}/>
+        </div>
+
+        <div className="absolute right-4 sm:right-6">
+          <ThemeSwitch />
+        </div>
       </div>
+
+      {showDropdown && (
+        <div className="mt-3 flex justify-center">
+          <ModelSelector/>
+        </div>
+      )}
     </div>
   );
 }
