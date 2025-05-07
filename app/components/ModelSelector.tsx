@@ -1,10 +1,9 @@
 "use client";
+import { useModelSelector } from "@app/hooks/useModelSelector";
 
-import { useChat } from "@app/hooks/useChat";
 
 export default function ModelSelector() {
-  const models = ["mistral", "llama3"];
-  const { model, setModel } = useChat();
+  const { models, model, setModel } = useModelSelector();
   
   return (
     <div className="flex items-center gap-3">

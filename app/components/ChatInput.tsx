@@ -1,34 +1,19 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useChatInput } from "@app/hooks/useChatInput";
 
 interface ChatInputProps {
   onSend: (message: string) => void;
 }
 
 export default function ChatInput({ onSend }: ChatInputProps) {
-  const [input, setInput] = useState("");
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-    onSend(input.trim());
-    setInput("");
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "60px";
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(e.target.value);
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "60px";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
-
-  const isInputEmpty = input.trim() === "";
+  const {
+    input,
+    isInputEmpty,
+    textareaRef,
+    handleSubmit,
+    handleInputChange,
+  } = useChatInput(onSend);
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2 w-full">

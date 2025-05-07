@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import ChatHeader from "./ChatHeader";
-import ChatInput from "./ChatInput";
-import ChatMessage from "./ChatMessage";
+import ChatHeader from "../components/ChatHeader";
+import ChatInput from "../components/ChatInput";
+import ChatMessage from "../components/ChatMessage";
 import { useChat } from "@app/hooks/useChat";
 
 const HomePage: React.FC = () => {
