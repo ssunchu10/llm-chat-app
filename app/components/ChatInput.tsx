@@ -37,6 +37,12 @@ export default function ChatInput({ onSend }: ChatInputProps) {
           ref={textareaRef}
           value={input}
           onChange={handleInputChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSubmit(e);
+            }
+          }}
           placeholder="Type your message..."
           className="w-full resize-none overflow-x-auto max-h-60 min-h-[60px] border border-gray-600 bg-gray-900 text-md rounded px-4 py-2 text-white placeholder:text-gray-400"
           style={{ whiteSpace: "pre", overflowX: "auto" }}
