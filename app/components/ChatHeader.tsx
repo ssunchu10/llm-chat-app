@@ -6,6 +6,7 @@ import { useChatHeader } from "@app/hooks/useChatHeader";
 import NewChatIcon from "../icons/NewChatIcon";
 import ModelSelector from "./ModelSelector";
 import Arrow from "../icons/ArrowIcon";
+import { useIsLargeScreen } from "@app/hooks/useIsLargeScreen";
 
 interface ChatHeaderProps {
   hasMessages: boolean;
@@ -13,6 +14,7 @@ interface ChatHeaderProps {
 
 export default function ChatHeader({ hasMessages }: ChatHeaderProps) {
   const { resetChat, showDropdown, toggleDropdown } = useChatHeader();
+  const isLargeScreen = useIsLargeScreen();
 
   return (
     <div className="relative pt-2 pb-2">
@@ -37,7 +39,7 @@ export default function ChatHeader({ hasMessages }: ChatHeaderProps) {
         </div>
       </div>
 
-      {showDropdown && (
+      {(showDropdown || isLargeScreen) && (
         <div className="mt-3 flex justify-center">
           <ModelSelector />
         </div>
@@ -45,3 +47,4 @@ export default function ChatHeader({ hasMessages }: ChatHeaderProps) {
     </div>
   );
 }
+
