@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
         <ChatHeader hasMessages={messages.length > 0} />
       </header>
 
-      <main className="flex-1 overflow-y-auto px-4 py-6 pb-32">
+      <main className="flex-1 overflow-y-auto px-4 py-6 pb-32 pt-16">
         <div className="max-w-4xl mx-auto space-y-3">
           {messages.length === 0 ? (
             <EmptyState />
