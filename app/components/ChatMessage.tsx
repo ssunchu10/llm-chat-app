@@ -28,7 +28,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         )}
 
         {isUser ? (
-          <pre className="whitespace-pre-wrap font-mono text-sm">
+          <pre className="whitespace-pre-wrap text-sm">
             <code>{message.content}</code>
           </pre>
         ) : (
