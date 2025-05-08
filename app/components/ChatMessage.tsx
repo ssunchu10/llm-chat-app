@@ -17,7 +17,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
       <div
         className={`max-w-[80%] px-4 py-3 rounded-2xl shadow-md text-sm break-words transition-all ${
           isUser
-            ? "bg-blue-600 text-white"
+            ? "bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
             : "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         }`}
       >
@@ -28,7 +28,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         )}
 
         {isUser ? (
-          <p>{message.content}</p>
+          <pre className="whitespace-pre-wrap font-mono text-sm">
+            <code>{message.content}</code>
+          </pre>
         ) : (
           <MessageRenderer content={message.content} />
         )}

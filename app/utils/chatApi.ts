@@ -10,6 +10,7 @@ export async function callChatAPI(
     body: JSON.stringify({ model, messages }),
   });
 
+  if (!response.ok) throw new Error("Failed to send message");
   if (!response.body) throw new Error("No response body");
   return response.body;
 }
