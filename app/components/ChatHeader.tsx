@@ -24,8 +24,10 @@ export default function ChatHeader({ hasMessages }: ChatHeaderProps) {
         </div>
 
         <div
-          className="flex items-center gap-2 cursor-pointer select-none"
-          onClick={toggleDropdown}
+          className={`flex items-center gap-2 select-none ${
+            isLargeScreen ? "" : "cursor-pointer"
+          }`}
+          onClick={isLargeScreen ? undefined : toggleDropdown}
         >
           <BrainIcon />
           <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
@@ -47,4 +49,3 @@ export default function ChatHeader({ hasMessages }: ChatHeaderProps) {
     </div>
   );
 }
-
