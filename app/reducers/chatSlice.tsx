@@ -3,7 +3,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { Message } from "@app/types/message";
 
-interface ChatState {
+export interface ChatState {
   messages: Message[];
   model: "mistral" | "llama3";
   loading: boolean;
