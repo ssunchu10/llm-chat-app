@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <html suppressHydrationWarning lang="en" className={montserrat.variable}>
-      <body className="bg-background text-foreground antialiased font-montserrat">
+      <body className="bg-background text-foreground antialiased font-montserrat" suppressHydrationWarning>
         <Providers>
           <ThemeProvider attribute="class">{children}</ThemeProvider>
         </Providers>

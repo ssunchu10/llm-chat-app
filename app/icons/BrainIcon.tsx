@@ -1,6 +1,7 @@
-export default function BrainIcon() {
+export default function BrainIcon({ className = "" }: { className?: string }) {
   return (
     <svg
+      className={className}
       stroke="currentColor"
       fill="none"
       strokeWidth="2"
