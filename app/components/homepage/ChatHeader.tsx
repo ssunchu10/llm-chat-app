@@ -1,18 +1,18 @@
 "use client";
 
-import ThemeSwitch from "./ThemeSwitch";
-import BrainIcon from "../icons/BrainIcon";
+import ThemeSwitch from "../ThemeSwitch";
+import BrainIcon from "../../icons/BrainIcon";
 import { useChatHeader } from "@app/hooks/useChatHeader";
-import NewChatIcon from "../icons/NewChatIcon";
-import ModelSelector from "./ModelSelector";
-import Arrow from "../icons/ArrowIcon";
+import NewChatIcon from "../../icons/NewChatIcon";
+import ModelSelector from "../ModelSelector";
+import Arrow from "../../icons/ArrowIcon";
 import { useIsLargeScreen } from "@app/hooks/useIsLargeScreen";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 
 interface ChatHeaderProps {
   hasMessages: boolean;
-  onToggleSidebar?: () => void; // new
+  onToggleSidebar?: () => void;
 }
 
 export default function ChatHeader({
@@ -61,7 +61,18 @@ export default function ChatHeader({
             aria-expanded={showDropdown}
             className="flex items-center gap-2 select-none cursor-pointer"
           >
-            <BrainIcon className="text-violet-600 dark:text-violet-400" />
+            <span
+              onClick={resetChat}
+              aria-label="Start new chat"
+              role="button"
+              tabIndex={0}
+              className="text-violet-600 dark:text-violet-400 focus:outline-none"
+              onKeyPress={(e) => {
+                if (e.key === "Enter" || e.key === " ") resetChat();
+              }}
+            >
+              <BrainIcon className="text-violet-600 dark:text-violet-400" />
+            </span>
             <h1 className="text-sm sm:text-xl font-bold text-gray-900 dark:text-white">
               Nova AI
             </h1>
@@ -74,19 +85,7 @@ export default function ChatHeader({
             <div className="flex items-center gap-2">
               <div className="w-20 h-8 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse"></div>
             </div>
-          ) : status === "authenticated" ? (
-            <>
-              <button
-                className="px-4 py-2 text-xs rounded-full bg-red-100 text-red-700 border border-red-200 cursor-pointer font-semibold shadow-sm hover:bg-red-200 transition dark:bg-red-900/20 dark:text-red-400 dark:border-red-800 dark:hover:bg-red-900/30"
-                type="button"
-                onClick={() =>
-                  signOut({ callbackUrl: "/log-in-or-create-account" })
-                }
-              >
-                Sign out
-              </button>
-            </>
-          ) : (
+          ) : status === "authenticated" ? null : (
             <>
               <button
                 className="px-4 py-2 text-xs rounded-full bg-white text-black border border-black cursor-pointer font-semibold shadow-sm hover:bg-gray-100 transition"
