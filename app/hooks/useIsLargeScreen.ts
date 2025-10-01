@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 
 export function useIsLargeScreen() {
   const [isLarge, setIsLarge] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkSize = () => {
-      setIsLarge(window.innerWidth >= 768); 
+      setIsLarge(window.innerWidth >= 1000);
+      setIsLoading(false);
     };
 
     checkSize();
@@ -13,5 +15,5 @@ export function useIsLargeScreen() {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  return isLarge;
+  return { isLarge, isLoading };
 }

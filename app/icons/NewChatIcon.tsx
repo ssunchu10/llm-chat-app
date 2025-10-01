@@ -3,14 +3,15 @@ import React from "react";
 interface NewChatIconProps {
   onClick?: () => void;
   className?: string;
+  ariaLabel?: string;
 }
 
-const NewChatIcon: React.FC<NewChatIconProps> = ({ onClick, className }) => {
+const NewChatIcon: React.FC<NewChatIconProps> = ({ onClick, className, ariaLabel }) => {
   return (
     <button
       onClick={onClick}
       className={`p-2 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition ${className || ""}`}
-      title="Reset Chat"
+      title={ariaLabel}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

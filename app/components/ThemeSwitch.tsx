@@ -39,12 +39,12 @@ const ThemeSwitch: React.FC = () => {
       <button
         onClick={toggleTheme}
         title={`Switch to ${nextTheme} mode`}
-        className="block sm:hidden p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition"
+        className="block p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition cursor-pointer"
       >
         {currentTheme.iconSvg}
       </button>
 
-      <div className="hidden sm:flex w-auto flex-row justify-center overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-700">
+      {/* <div className="hidden md:flex w-auto flex-row justify-center overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-700">
         {SWITCH_DATA.map((data) => (
           <button
             key={data.value}
@@ -55,10 +55,10 @@ const ThemeSwitch: React.FC = () => {
             onClick={() => setExplicitTheme(data.value)}
           >
             {data.iconSvg}
-            <h3 className="hidden sm:block">{data.name}</h3>
+            <h3 className="hidden md:block">{data.name}</h3>
           </button>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
